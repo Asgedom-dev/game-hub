@@ -1,7 +1,8 @@
-import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
+import { Button, HStack, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import { BsChevronDown } from 'react-icons/bs'
 import { Platform } from '../hooks/useGames'
 import usePlatforms from '../hooks/usePlatforms'
+import SortSelector from './SortSelector';
 
 interface Props{
   onSelectPlatform:(platform:Platform)=>void;
@@ -13,9 +14,15 @@ const PlatformSelector = ({onSelectPlatform,selectedPlatform}:Props) => {
   if (error) return null
   return (
     <Menu>
+      <HStack spacing={5}  marginBottom={5}>
+      
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-        {selectedPlatform?.name||'Platforms'}
-      </MenuButton>
+              {selectedPlatform?.name||'Platforms'}
+            </MenuButton>
+            <SortSelector/>
+      </HStack>
+      
+      
       <MenuList>
         {data.map((platform) => (
           <MenuItem onClick={()=>onSelectPlatform(platform)} key={platform.id}>{platform.name}</MenuItem>
