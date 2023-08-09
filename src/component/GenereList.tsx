@@ -5,8 +5,9 @@ import getCroppedImageUrl from '../services/image-url'
 
 interface Props{
   onSelectGenre: (genre:Genre)=>void;
+  selectedGenre:Genre | null;
 }
-const GenereList = ({onSelectGenre}:Props) => {
+const GenereList = ({onSelectGenre,selectedGenre}:Props) => {
   // const {data}=useData<Genre>('/genres')
   const { data,isLoading,error } = useGenres()
   if(isLoading) return <Spinner/>
@@ -21,7 +22,7 @@ const GenereList = ({onSelectGenre}:Props) => {
               borderRadius={8}
               src={getCroppedImageUrl(genre.image_background)}
             />
-            <Button onClick={()=>onSelectGenre(genre)} fontSize='lg' variant='link'>
+            <Button fontWeight={genre.id===selectedGenre?.id ? 'bold':''} onClick={()=>onSelectGenre(genre)} fontSize='lg' variant='link'>
               {genre.name}
             </Button>
             {genre.name}
